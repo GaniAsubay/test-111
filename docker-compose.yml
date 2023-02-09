@@ -1,0 +1,40 @@
+version: "3"
+services:
+  web:
+    image: nginx:latest
+    platform: linux/amd64
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php-fpm
+      - mysqldb
+    networks:
+      - dars-test-network
+  php-fpm:
+    platform: linux/amd64
+    image: php:8-fpm
+    build: .
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - dars-test-network
+  mysqldb:
+    image: mysql:5.7
+    platform: linux/amd64
+    restart: always
+    environment:
+      - MYSQL_DATABASE=dars_test
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_USER=dars
+      - MYSQL_PASSWORD=1234
+    ports:
+      - "8989:3306"
+    volumes:
+      - "./data/db/mysql:/var/lib/mysql"
+    networks:
+      - dars-test-network
+networks:
+  dars-test-network:
