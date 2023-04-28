@@ -12,7 +12,7 @@ services:
       - php-fpm
       - mysqldb
     networks:
-      - dars-test-network
+      - test-network
   php-fpm:
     platform: linux/amd64
     image: php:8-fpm
@@ -20,21 +20,21 @@ services:
     volumes:
       - ./:/var/www/html
     networks:
-      - dars-test-network
+      - test-network
   mysqldb:
     image: mysql:5.7
     platform: linux/amd64
     restart: always
     environment:
-      - MYSQL_DATABASE=dars_test
-      - MYSQL_ROOT_PASSWORD=1234
-      - MYSQL_USER=dars
+      - MYSQL_DATABASE=test
+      - MYSQL_ROOT_PASSWORD=123
+      - MYSQL_USER=test
       - MYSQL_PASSWORD=1234
     ports:
       - "8989:3306"
     volumes:
       - "./data/db/mysql:/var/lib/mysql"
     networks:
-      - dars-test-network
+      - test-network
 networks:
-  dars-test-network:
+  test-network:

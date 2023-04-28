@@ -47,7 +47,10 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 '' => 'site/index',
-                'GET api/books' => 'api/book'
+                'POST api/check/open' => 'api/check/open',
+                'POST api/check/add' => 'api/check/attach-dish',
+                'GET api/cooks' => 'api/cook/index',
+                'GET api/dishes' => 'api/dish/index'
             ],
         ],
     ],
